@@ -1,0 +1,6 @@
+[submodule "tp-mongo-back"]
+	path = tp-mongo-back
+	url = https://github.com/PhilLeGoff/tp-mongo-back.git
+[submodule "tp-mongo-front"]
+	path = tp-mongo-front
+	url = https://github.com/PhilLeGoff/tp-mongo-front.git
