@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./tp-mongo-back
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./tp-mongo-back/.env
+    volumes:
+      - ./tp-mongo-back:/app
+
+  # frontend:
+  #   build:
+  #     context: ./tp-mongo-front
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./tp-mongo-front:/app
+  frontend:
+    build:
+      context: ./tp-mongo-front
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
