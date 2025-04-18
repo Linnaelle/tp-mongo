@@ -1,86 +1,84 @@
-# Movie Explorer – Orchestrateur Docker
+# Movie Explorer – Projet Fullstack
 
-Ce dépôt permet de lancer l'application complète **Movie Explorer**, composée d'un frontend React et d'un backend Flask connectés à MongoDB.Tout est conteneurisé via Docker.
+Ce projet est une application web fullstack qui permet d'explorer une base de données de films, grâce à une API Flask connectée à MongoDB, et un frontend moderne construit avec React et TailwindCSS.
 
----
-
-## Objectif de l'application
-
-**Movie Explorer** est une application web permettant d'explorer et d'analyser une base de données de films. Elle propose :
-
-- Un tableau de bord avec statistiques et graphiques
-- Une exploration par genre, popularité, ou époque
-- Un affichage interactif et responsive des données
-
-Cette architecture vise à illustrer l'utilisation combinée d'un backend en Flask, d'une base de données MongoDB, et d'un frontend moderne en React, le tout orchestré via Docker.
+Pensée pour être simple à utiliser et à déployer, l'application permet d'explorer des films par genre, d'effectuer des recherches et d'afficher des statistiques.
 
 ---
 
-## Contenu du projet
+## Objectif pédagogique
 
-```
-movie-explorer-deploy/
-├── tp-mongo-back/        # Backend Flask
-├── tp-mongo-front/       # Frontend React
-└── docker-compose.yml    # Orchestration des services
-```
+Ce projet a été réalisé dans le cadre d'un travail de groupe sur 3 jours. Il nous a permis de mettre en pratique l'ensemble de la chaîne de développement web :
+
+- Construction d'une API REST avec Flask
+- Utilisation de MongoDB et modélisation de documents
+- Intégration frontend avec React / Vite / Tailwind
+- Mise en place d'une architecture conteneurisée avec Docker
+- Collaboration avec Git (et submodules)
 
 ---
 
 ## Déploiement
 
-### 1. Cloner ce dépôt avec les submodules
+### 1. Cloner ce dépôt principal (structure globale)
 
 ```bash
 git clone --recurse-submodules https://github.com/Linnaelle/tp-mongo.git
 cd tp-mongo
 ```
 
-> Si vous avez déjà cloné le dépôt sans `--recurse-submodules` :
+> Si vous avez déjà cloné le repo sans `--recurse-submodules`, faites :
+>
+> ```bash
+> git submodule update --init --recursive
+> ```
+
+### 2. Créer un fichier .env pour le backend
+
+Créez un fichier .env à la racine du dossier tp-mongo-back avec le contenu suivant (valeurs à adapter) :
+
 ```bash
-git submodule update --init --recursive
+DB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/movie-app?retryWrites=true&w=majority
+TMDB_API_KEY=your_tmdb_api_key
+TMDB_BASE=https://api.themoviedb.org/3
 ```
 
-### 2. Lancer les conteneurs
+Vous pouvez vous baser sur le fichier .env.example fourni.
+
+### 3. Démarrer l'application avec Docker
 
 ```bash
 docker-compose up --build
 ```
 
----
+L'application sera disponible sur :
 
-## Accès aux services
-
-| Service  | URL                                            |
-| -------- | ---------------------------------------------- |
-| Frontend | [http://localhost:8080](http://localhost:8080) |
-| Backend  | [http://localhost:5000](http://localhost:5000) |
+- Backend (API Flask) : [http://localhost:5000](http://localhost:5000)
+- Frontend (interface web) : [http://localhost:8080](http://localhost:8080)
 
 ---
 
-## Pré-requis
-
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/fr-fr/windows/wsl/install) pour les utilisateurs Windows
-
----
-
-## Arborescence attendue
-
-```
-tp-mongo/
-├── docker-compose.yml
-├── tp-mongo-back/
-│   └── app/
-└── tp-mongo-front/
-    └── src/
-```
-
----
-
-## Arrêter les conteneurs
+## Structure du projet
 
 ```bash
-docker-compose down
+tp-mongo/                # Dépôt principal
+├── docker-compose.yml   # Déploiement multi-services
+├── .env                 # Variables d'environnement globales (ex : DB_URI)
+├── tp-mongo-back/       # Sous-module backend (Flask + MongoDB)
+└── tp-mongo-front/      # Sous-module frontend (React + Vite + Nginx)
 ```
+
+---
+
+## Membres du projet
+
+- **Dashboard / Analytics** : Omomene IWELOMEN
+- **Développement fullstack** : Paul SODE, Belem Gloire BEKOUTOU, Philippe Le Goff
+- **Environnement, DevOps et structuration** : Clément PERRET
+
+---
+
+## Remarques
+
+- L'ensemble du projet fonctionne avec Docker, mais chaque service peut être lancé indépendamment si besoin (voir README du front/back).
+- Si vous utilisez Windows, pensez à activer l'intégration WSL2 dans Docker Desktop.
